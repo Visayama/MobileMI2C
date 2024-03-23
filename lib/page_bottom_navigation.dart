@@ -4,6 +4,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:project/page_column.dart';
 import 'package:project/page_detail.dart';
 import 'package:project/page_form_register.dart';
+import 'package:project/page_search_list.dart';
 
 class PageBottomNavigationBar extends StatefulWidget {
   const PageBottomNavigationBar({super.key});
@@ -33,7 +34,8 @@ class _PageBottomNavigationBarState extends State<PageBottomNavigationBar>
         children: const [
           PageFormRegister(),
           CustomeGrid(),
-          PageColumnRow()
+          PageColumnRow(),
+          PageSearchList()
         ],
       ),
 

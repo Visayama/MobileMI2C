@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:project/model/page_list_berita.dart';
 import 'package:project/page_bottom_navigation.dart';
+import 'package:project/page_list_user.dart';
 import 'package:project/page_navigation_bar.dart';
+import 'package:project/page_search_list.dart';
 
 class PageBeranda extends StatelessWidget {
   const PageBeranda({super.key});
@@ -45,7 +48,7 @@ class PageBeranda extends StatelessWidget {
                   toastHorizontalMargin: 20,
                   fullWidth: true,
                 );
-                //code untuk pindah page
+                //code untuk pindah pager
                 Navigator.push(context, MaterialPageRoute(builder: (context)
                 => PageNavigationBar()
                 ));
@@ -115,8 +118,63 @@ class PageBeranda extends StatelessWidget {
                   ),
                 ),
                 color: Colors.green,
-                textColor: Colors.white,
+                textColor: Colors.white
+
+
               ),
+              SizedBox(height: 8,),
+              MaterialButton(onPressed: (){
+                //code untuk pindah page
+                Navigator.push(context, MaterialPageRoute(builder: (context)
+                => PageSearchList()
+                ));
+              },
+                  child: Text('Page Search List',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12
+                    ),
+                  ),
+                  color: Colors.green,
+                  textColor: Colors.white
+              ),
+
+              SizedBox(height: 8,),
+              MaterialButton(onPressed: (){
+                //code untuk pindah page
+                Navigator.push(context, MaterialPageRoute(builder: (context)
+                => PageListUsers()
+                ));
+              },
+                  child: Text('List User Api',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12
+                    ),
+                  ),
+                  color: Colors.green,
+                  textColor: Colors.white
+              ),
+
+              SizedBox(height: 8,),
+              MaterialButton(onPressed: (){
+                //code untuk pindah page
+                Navigator.push(context, MaterialPageRoute(builder: (context)
+                => PageListBerita()
+                ));
+              },
+                  child: Text('List Berita',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12
+                    ),
+                  ),
+                  color: Colors.green,
+                  textColor: Colors.white
+              ),
+
+
+
 
             ],
           ),
