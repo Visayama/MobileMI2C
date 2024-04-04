@@ -21,7 +21,7 @@ class DetailBerita extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                'http://10.126.236.202/beritaDb/gambar_berita/${data
+                'http://192.168.100.100/beritaDb/gambar_berita/${data
                     ?.gambarBerita}',
                 fit: BoxFit.fill,
               ),

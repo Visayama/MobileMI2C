@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/model/detail_berita.dart';
+import 'package:project/page_login_api.dart';
+import 'package:project/utils/session_manager.dart';
 import 'model_berita.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PageListBerita extends StatefulWidget {
@@ -17,7 +20,7 @@ class _PageListBeritaState extends State<PageListBerita> {
   Future<List<Datum>?> getBerita() async {
     try {
       http.Response response = await
-      http.get(Uri.parse('http://10.126.236.202/beritaDb/getBerita.php'));
+      http.get(Uri.parse('http://192.168.100.100/beritaDb/getBerita.php'));
       return modelBeritaFromJson(response.body).data;
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -27,9 +30,48 @@ class _PageListBeritaState extends State<PageListBerita> {
       }
     }
 
+  String? userName;
+
+  //untuk mendapatkan data sesi
+  Future getDataSession() async{
+    await Future.delayed(const Duration(seconds: 5), (){
+      session.getSession().then((value) {
+        print('data sesi .. ' + value.toString());
+        userName = session.userName;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    session.getSession();
+    getDataSession();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Aplikasi Berita'),
+        backgroundColor: Colors.cyan,
+        actions: [
+          TextButton(onPressed: (){}, child: Text('Hi .. ${session.userName}')),
+          //logout
+          IconButton(onPressed: (){
+            //clear session
+            setState(() {
+              session.clearSession();
+              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)
+              => PageLoginApi()
+              ),
+                      (route) => false);
+            });
+          },
+            icon: Icon(Icons.exit_to_app), tooltip: 'Logout',)
+        ],
+      ),
       body: FutureBuilder(
         future: getBerita(),
         builder: (BuildContext context, AsyncSnapshot<List<Datum>?> snapshot){
@@ -54,7 +96,7 @@ class _PageListBeritaState extends State<PageListBerita> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
-                        'http://10.126.236.202/beritaDb/gambar_berita/${data
+                        'http://192.168.100.100/beritaDb/gambar_berita/${data
                             ?.gambarBerita}',
                         fit: BoxFit.fill,
                       ),
@@ -93,7 +135,8 @@ class _PageListBeritaState extends State<PageListBerita> {
               ),
             );
           }
-        }),
+        }
+        ),
     );
   }
 }
